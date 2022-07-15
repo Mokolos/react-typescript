@@ -1,5 +1,5 @@
 import './login.css';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import LoginSchema from '../../validator/loginSchema';
@@ -8,6 +8,7 @@ import FormLogin from '../../types/formLogin';
 const Login = () => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const isInitialRender = useRef(true);
 
     const [loginUser, setLoginUser] = useState <FormLogin> ({
         email,
@@ -20,7 +21,11 @@ const Login = () => {
     });
 
     useEffect(() => {
-        console.log(loginUser);    
+        if (isInitialRender.current === true){
+            isInitialRender.current = false;
+            console.log(loginUser); 
+        }
+           
     //   reset({
     //     email: loginUser.email,
     //     password : loginUser.password
@@ -44,17 +49,16 @@ const Login = () => {
         register("password", {value: password})
     }, [password]);
     
-
     const onSubmit = (data: FormLogin) => console.log(data);
-    
+
     return (
         <>
             <form onSubmit={handleSubmit(onSubmit)}>
                 <input type="email" {...register("email")}  />
-                <p>{errors.email?.message}</p>
+                {errors.email && <p>{errors.email?.message}</p>}
 
                 <input type="password" {...register("password")}  />
-                <p>{errors.password?.message}</p>
+                {errors.password && <p>{errors.password?.message}</p>}
 
                 <input type="submit" />
             </form>
