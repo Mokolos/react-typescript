@@ -5,7 +5,7 @@ const loginSchema = yup.object({
     .string()
     .required("Email is required")
     .matches(
-      /[\w#][\w\.\’+#](.[\w\\’#]+)\@[a-zA-Z0-9]+(.[a-zA-Z0-9]+)*(.[a-zA-Z]{2,20})$/, 
+      /[\w#][\w.’+#](.[\w\\’#]+)@[a-zA-Z0-9]+(.[a-zA-Z0-9]+)*(.[a-zA-Z]{2,20})$/, 
       'Enter the right email'),
   password: yup
     .string()
