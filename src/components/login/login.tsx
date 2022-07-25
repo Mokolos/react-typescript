@@ -4,11 +4,14 @@ import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import LoginSchema from '../../validator/loginSchema';
 import FormLogin from '../../types/formLogin';
+import { useDispatch } from 'react-redux';
+import { loginSaga } from '../../redux/sagas/login/loginSagas';
 
 const Login = () => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const isInitialRender = useRef(true);
+    const dispatch= useDispatch();
 
     const [loginUser, setLoginUser] = useState <FormLogin> ({
         email,
@@ -49,7 +52,10 @@ const Login = () => {
         register("password", {value: password})
     }, [password]);
     
-    const onSubmit = (data: FormLogin) => console.log(data);
+    const onSubmit = (data: FormLogin) => {
+        console.log(data);
+        dispatch(loginSaga(data.email, data.password));
+    }
 
     return (
         <>
