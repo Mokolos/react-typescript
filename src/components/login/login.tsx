@@ -5,7 +5,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import LoginSchema from '../../validator/loginSchema';
 import FormLogin from '../../types/formLogin';
 import { useDispatch } from 'react-redux';
-import { loginSaga } from '../../redux/sagas/login/loginSagas';
+import { loginRequest } from '../../redux/reducers/login/loginSlice';
 
 const Login = () => {
     const [email, setEmail] = useState("");
@@ -54,7 +54,8 @@ const Login = () => {
     
     const onSubmit = (data: FormLogin) => {
         console.log(data);
-        dispatch(loginSaga(data.email, data.password));
+        
+        dispatch(loginRequest(data));
     }
 
     return (

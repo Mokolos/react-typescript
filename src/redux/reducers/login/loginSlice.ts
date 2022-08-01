@@ -3,15 +3,17 @@ import { createSlice } from "@reduxjs/toolkit";
 export const loginSlice = createSlice({
     name: 'login',
     initialState: {
+        user: {},
         loading:false,
-        errorMessage: "",
-        success:false,
         isLoggedIn: false,
+        success:false,
+        errorMessage: "",
         token: {}
     },
     reducers:{
-        loginRequest: state => {
+        loginRequest: (state, action) => {
             state.loading = true
+            state.user = action.payload
         },
         loginSuccess: (state, action) =>{
             state.loading= false
