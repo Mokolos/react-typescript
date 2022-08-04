@@ -3,9 +3,9 @@ import { useEffect, useState, useRef } from 'react';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import LoginSchema from '../../validator/loginSchema';
-import FormLogin from '../../types/formLogin';
+import { FormLogin } from '../../types/login/formLogin';
 import { useDispatch } from 'react-redux';
-import { loginRequest } from '../../redux/reducers/login/loginSlice';
+import { loginConstants } from '../../redux/constants/login/loginConstants';
 
 const Login = () => {
     const [email, setEmail] = useState("");
@@ -54,8 +54,10 @@ const Login = () => {
     
     const onSubmit = (data: FormLogin) => {
         console.log(data);
-        
-        dispatch(loginRequest(data));
+        dispatch({
+            type:loginConstants.LOGIN_SUBMIT, 
+            payload: data
+        });
     }
 
     return (

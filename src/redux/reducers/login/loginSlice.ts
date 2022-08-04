@@ -11,21 +11,21 @@ export const loginSlice = createSlice({
         token: {}
     },
     reducers:{
-        loginRequest: (state, action) => {
+        loginRequest: (state, { payload }) => {
             state.loading = true
-            state.user = action.payload
+            state.user= payload.data
         },
-        loginSuccess: (state, action) =>{
+        loginSuccess: (state, { payload }) =>{
             state.loading= false
             state.success= true
             state.isLoggedIn= true
-            state.token= action.payload
+            state.token = payload.token
         },
-        loginError: (state , action) =>{
+        loginError: (state , { payload }) =>{
             state.loading= false
             state.success= false
-            state.errorMessage= action.payload
-            state.isLoggedIn= false 
+            state.isLoggedIn= false
+            state.errorMessage = payload.error  
         }
     }
 });
