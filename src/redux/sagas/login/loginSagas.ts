@@ -1,12 +1,13 @@
 import { AxiosError } from 'axios';
 import { call, put, takeEvery } from 'redux-saga/effects';
-import { loginError, loginSuccess } from '../../reducers/login/loginSlice';
+import { loginError, loginRequest, loginSuccess } from '../../reducers/login/loginSlice';
 import { loginPost } from '../../api/login/loginPost';
 import { FormLoginResponse, FormLoginSubmit } from '../../../types/login/formLogin';
 import { loginConstants } from '../../constants/login/loginConstants';
 
 export function* loginSaga (action: FormLoginSubmit){
     const { email, password } = action.payload;
+    yield put (loginRequest(action.payload));
     try {
         const response:FormLoginResponse = yield call(loginPost, email, password);
         if(response.status === 200){

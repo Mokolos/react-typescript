@@ -5,7 +5,7 @@ import loginReducer from "../reducers/login/loginSlice";
 
 const sagaMiddleware = createSagaMiddleware();
 
-export default configureStore({
+const store = configureStore({
     reducer:{
         login: loginReducer
     },
@@ -13,4 +13,10 @@ export default configureStore({
 })
 
 sagaMiddleware.run(rootSaga);
+
+export default store;
+
+export type RootState = ReturnType<typeof store.getState>;
+export type AppDispatch = typeof store.dispatch;
+
 
